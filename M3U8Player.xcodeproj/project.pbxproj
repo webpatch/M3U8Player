@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41E515171A1B4ABC00A3DD56 /* KinyLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41E515151A1B4AAA00A3DD56 /* KinyLib.framework */; };
+		41E515181A1B4ABC00A3DD56 /* KinyLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41E515151A1B4AAA00A3DD56 /* KinyLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		41E5151A1A1B4B1A00A3DD56 /* m3u8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 41E515191A1B4B1A00A3DD56 /* m3u8.txt */; };
 		41F1E3D31A19F0D0009A823F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F1E3D21A19F0D0009A823F /* AppDelegate.swift */; };
 		41F1E3D51A19F0D0009A823F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F1E3D41A19F0D0009A823F /* ViewController.swift */; };
 		41F1E3D81A19F0D0009A823F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41F1E3D61A19F0D0009A823F /* Main.storyboard */; };
@@ -25,7 +28,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		41E703831A1B3B0B00B5F91A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				41E515181A1B4ABC00A3DD56 /* KinyLib.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		41E515151A1B4AAA00A3DD56 /* KinyLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KinyLib.framework; path = "../../Library/Developer/Xcode/DerivedData/KinyLib-dfysbgxavxecgyfprrkyshinjpgd/Build/Products/Debug-iphonesimulator/KinyLib.framework"; sourceTree = "<group>"; };
+		41E515191A1B4B1A00A3DD56 /* m3u8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = m3u8.txt; sourceTree = "<group>"; };
 		41F1E3CD1A19F0D0009A823F /* M3U8Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = M3U8Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F1E3D11A19F0D0009A823F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41F1E3D21A19F0D0009A823F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41E515171A1B4ABC00A3DD56 /* KinyLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +79,7 @@
 		41F1E3C41A19F0D0009A823F = {
 			isa = PBXGroup;
 			children = (
+				41E515151A1B4AAA00A3DD56 /* KinyLib.framework */,
 				41F1E3CF1A19F0D0009A823F /* M3U8Player */,
 				41F1E3E51A19F0D0009A823F /* M3U8PlayerTests */,
 				41F1E3CE1A19F0D0009A823F /* Products */,
@@ -83,6 +104,7 @@
 				41F1E3D91A19F0D0009A823F /* Images.xcassets */,
 				41F1E3DB1A19F0D0009A823F /* LaunchScreen.xib */,
 				41F1E3D01A19F0D0009A823F /* Supporting Files */,
+				41E515191A1B4B1A00A3DD56 /* m3u8.txt */,
 			);
 			path = M3U8Player;
 			sourceTree = "<group>";
@@ -122,6 +144,7 @@
 				41F1E3C91A19F0D0009A823F /* Sources */,
 				41F1E3CA1A19F0D0009A823F /* Frameworks */,
 				41F1E3CB1A19F0D0009A823F /* Resources */,
+				41E703831A1B3B0B00B5F91A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -195,6 +218,7 @@
 				41F1E3D81A19F0D0009A823F /* Main.storyboard in Resources */,
 				41F1E3DD1A19F0D0009A823F /* LaunchScreen.xib in Resources */,
 				41F1E3DA1A19F0D0009A823F /* Images.xcassets in Resources */,
+				41E5151A1A1B4B1A00A3DD56 /* m3u8.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,9 +362,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KinyLib-aqwpjntapjxvjggksvnqvqpjztkx/Build/Products/Debug-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KinyLib-erjqsiicavfjidgimdtcienrclpj/Build/Products/Debug-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KinyLib-erjqsiicavfjidgimdtcienrclpj/Build/Products/Debug-iphonesimulator",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KinyLib-dfysbgxavxecgyfprrkyshinjpgd/Build/Products/Debug-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KinyLib-dfysbgxavxecgyfprrkyshinjpgd/Build/Products/Debug-iphonesimulator",
+				);
 				INFOPLIST_FILE = M3U8Player/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Debug;
 		};
@@ -348,9 +381,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KinyLib-aqwpjntapjxvjggksvnqvqpjztkx/Build/Products/Debug-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KinyLib-erjqsiicavfjidgimdtcienrclpj/Build/Products/Debug-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KinyLib-erjqsiicavfjidgimdtcienrclpj/Build/Products/Debug-iphonesimulator",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KinyLib-dfysbgxavxecgyfprrkyshinjpgd/Build/Products/Debug-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KinyLib-dfysbgxavxecgyfprrkyshinjpgd/Build/Products/Debug-iphonesimulator",
+				);
 				INFOPLIST_FILE = M3U8Player/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};
@@ -407,6 +449,7 @@
 				41F1E3EE1A19F0D0009A823F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		41F1E3EF1A19F0D0009A823F /* Build configuration list for PBXNativeTarget "M3U8PlayerTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +458,7 @@
 				41F1E3F11A19F0D0009A823F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

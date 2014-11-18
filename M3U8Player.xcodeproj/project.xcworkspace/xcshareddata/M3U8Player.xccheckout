@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>745617AE-0E41-4AD9-A4B7-354DB55E6997</string>
+	<key>IDESourceControlProjectName</key>
+	<string>M3U8Player</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>810A3AD980027B9DB642C6266249F9BB48300D48</key>
+		<string>https://github.com/webpatch/M3U8Player</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>M3U8Player.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>810A3AD980027B9DB642C6266249F9BB48300D48</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/webpatch/M3U8Player</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>810A3AD980027B9DB642C6266249F9BB48300D48</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>810A3AD980027B9DB642C6266249F9BB48300D48</string>
+			<key>IDESourceControlWCCName</key>
+			<string>M3U8Player</string>
+		</dict>
+	</array>
+</dict>
+</plist>
