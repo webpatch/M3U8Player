@@ -9,61 +9,61 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var _op:NSOperationQueue!
 
+    
+    @IBOutlet weak var label: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         let p = NSBundle.mainBundle().pathForResource("m3u8", ofType: "txt")!
-        let m3u8 = NSString(contentsOfFile: p, encoding: NSUTF8StringEncoding, error: nil)!
-        let arr = m3u8.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
-        var videoURLs = [NSURL]()
-        for str:String in arr
-        {
-            if str.hasPrefix("http://")
-            {
-                let url:String = (str as NSString).componentsSeparatedByString("?")[0] as String
-                println(url)
-                videoURLs.append(NSURL(string: url)!)
-            }
-        }
+        let m3u8File = NSString(contentsOfFile: p, encoding: NSUTF8StringEncoding, error: nil)!
+        let videoURLs = M3U8.decode(m3u8File)
         
-        let vp = NSTemporaryDirectory()
-        println(vp)
+        let tmpPath = NSHomeDirectory()
+        println(tmpPath)
         var opArr = NSMutableArray()
         var num = 0
+        var currProgressNum:Double = 0
+        var totalProgressNum:Double = 0
         for url in videoURLs
         {
-            let r =  NSURLRequest(URL: url)
-            var op = AFHTTPRequestOperation(request:r)
-//            op.responseSerializer = AFImageResponseSerializer
-//            op.outputStream = NSOutputStream(toFileAtPath: NSTemporaryDirectory(), append: false)
+            
+            var op = AFHTTPRequestOperation(request:NSURLRequest(URL: NSURL(string: url)!))
+            
             op.setDownloadProgressBlock({ (byetsRead, totalBytesRead, totalBytesExpectedToRead) -> Void in
-                println(Double(totalBytesRead)/Double(totalBytesExpectedToRead))
+                currProgressNum = Double(totalBytesRead)/Double(totalBytesExpectedToRead) * Double(100.0)/Double(videoURLs.count)
+                self.label.text = String(format: "%.1f",currProgressNum+totalProgressNum)
             })
+            
             op.setCompletionBlockWithSuccess({(AFHTTPRequestOperation, AnyObject) -> Void in
-//                println(AFHTTPRequestOperation.responseData)
-                var data:NSData = AFHTTPRequestOperation.responseData
-                println("\(vp)\(num)")
-                data.writeToFile("\(vp)\\\(num)", atomically: true)
+                totalProgressNum += currProgressNum
+                currProgressNum = 0
                 
+                let path = tmpPath.stringByAppendingPathComponent("\(num).\(url.pathExtension)")
+                var data:NSData = AFHTTPRequestOperation.responseData
+                println("write to \(path)")
+                data.writeToFile(path, atomically: true)
+                num++
             }, failure: { (AFHTTPRequestOperation, NSError) -> Void in
                
             })
             opArr.addObject(op)
-            num+=1
         }
         
         var batches = AFURLConnectionOperation.batchOfRequestOperations(opArr, progressBlock: { (numberOfFinishedOperations, totalNumberOfOperations) -> Void in
-            println(numberOfFinishedOperations)
+            
         },completionBlock:{ (operations) -> Void in
-            println("zzzzzz")
+            println("all done!")
         })
         
-        
-        
-        NSOperationQueue.mainQueue().addOperations(batches, waitUntilFinished: false)
-        
+        _op = NSOperationQueue()
+        _op.maxConcurrentOperationCount = 1
+        _op.addOperations(batches, waitUntilFinished: false)
         println("total \(videoURLs.count)")
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let ws = GCDWebServer()
+        ws.addGETHandlerForBasePath("/", directoryPath: NSHomeDirectory(), indexFilename: nil, cacheAge: 3600, allowRangeRequests: true)
+        ws.startWithPort(8080, bonjourName: nil)
     }
 
     override func didReceiveMemoryWarning() {
