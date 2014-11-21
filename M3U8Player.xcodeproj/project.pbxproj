@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		330FC4681A1F693100B5D319 /* M3U8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330FC4671A1F693100B5D319 /* M3U8.swift */; };
 		410991841A1DEC5F00FFEB7F /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 410991831A1DEC5F00FFEB7F /* Parser.m */; };
 		4194E2A31A1EF0B300D0A1AC /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194E2A21A1EF0B300D0A1AC /* String.swift */; };
 		4194E2A51A1EF7C800D0A1AC /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4194E2A41A1EF7C800D0A1AC /* MediaPlayer.framework */; };
 		4194E2AA1A1F262C00D0A1AC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4194E2A91A1F262C00D0A1AC /* AVFoundation.framework */; };
 		4194E2AC1A1F2A3F00D0A1AC /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4194E2AB1A1F2A3F00D0A1AC /* CoreMedia.framework */; };
-		41B1EA2B1A1C933400F74839 /* M3U8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B1EA2A1A1C933400F74839 /* M3U8.swift */; };
 		41F1E3D31A19F0D0009A823F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F1E3D21A19F0D0009A823F /* AppDelegate.swift */; };
 		41F1E3D51A19F0D0009A823F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F1E3D41A19F0D0009A823F /* ViewController.swift */; };
 		41F1E3D81A19F0D0009A823F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41F1E3D61A19F0D0009A823F /* Main.storyboard */; };
@@ -47,13 +47,13 @@
 
 /* Begin PBXFileReference section */
 		330856011A1B747300EFC272 /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		330FC4671A1F693100B5D319 /* M3U8.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M3U8.swift; sourceTree = "<group>"; };
 		410991821A1DEC5F00FFEB7F /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
 		410991831A1DEC5F00FFEB7F /* Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Parser.m; sourceTree = "<group>"; };
 		4194E2A21A1EF0B300D0A1AC /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		4194E2A41A1EF7C800D0A1AC /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		4194E2A91A1F262C00D0A1AC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4194E2AB1A1F2A3F00D0A1AC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		41B1EA2A1A1C933400F74839 /* M3U8.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = M3U8.swift; path = "UIKit+AFNetworking/M3U8.swift"; sourceTree = "<group>"; };
 		41F1E3CD1A19F0D0009A823F /* M3U8Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = M3U8Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F1E3D11A19F0D0009A823F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41F1E3D21A19F0D0009A823F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				4194E2A21A1EF0B300D0A1AC /* String.swift */,
-				41B1EA2A1A1C933400F74839 /* M3U8.swift */,
+				330FC4671A1F693100B5D319 /* M3U8.swift */,
 				41F1E3D21A19F0D0009A823F /* AppDelegate.swift */,
 				41F1E3D41A19F0D0009A823F /* ViewController.swift */,
 				41F1E3D61A19F0D0009A823F /* Main.storyboard */,
@@ -313,7 +313,7 @@
 				410991841A1DEC5F00FFEB7F /* Parser.m in Sources */,
 				41F1E3D51A19F0D0009A823F /* ViewController.swift in Sources */,
 				4194E2A31A1EF0B300D0A1AC /* String.swift in Sources */,
-				41B1EA2B1A1C933400F74839 /* M3U8.swift in Sources */,
+				330FC4681A1F693100B5D319 /* M3U8.swift in Sources */,
 				41F1E3D31A19F0D0009A823F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
