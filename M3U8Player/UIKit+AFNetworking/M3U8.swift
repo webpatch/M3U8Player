@@ -7,28 +7,44 @@
 //
 
 import Foundation
-struct M3U8SegmentInfo {
+struct M3U8SegmentInfo:Printable {
     var url:String
-    var duration:String
+    var duration:Double
+    var description:String
+    {
+        return "\(url):\(duration)"
+    }
+}
+
+private func findM3U8(url:String, inArray:[M3U8SegmentInfo]) ->Bool
+{
+    for i in inArray
+    {
+        if i.url == url{
+            return true
+        }
+    }
+    return false
 }
 
 class M3U8 {
-    class func decode(content:String)->[String]
+    class func decode(content:String) -> [M3U8SegmentInfo]
     {
-        var videoURLs = [String]()
+        var videoURLs = [M3U8SegmentInfo]()
         let arr = content.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
+        var duration:Double = 0
         for str:String in arr
         {
-            if str.hasPrefix("http://")
+            if str.hasPrefix("#EXTINF:")
             {
-                let url:String = (str as NSString).componentsSeparatedByString("?")[0] as String
-                if(find(videoURLs, url) == nil)
-                {
-                    println(url)
-                    videoURLs.append(url)
-                }
+                let s = (str as NSString).componentsSeparatedByString(":")[1] as String
+                duration = s.subStringTo(s.length-1).toDouble()
+            }else if str.hasPrefix("http://"){
+                videoURLs.append(M3U8SegmentInfo(url: str, duration: 0));
+                videoURLs[videoURLs.count-1].duration += duration
             }
         }
+        println(videoURLs)
         return videoURLs
     }
     
