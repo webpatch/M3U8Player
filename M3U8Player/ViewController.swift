@@ -12,6 +12,7 @@ import MediaPlayer
 class ViewController: UIViewController {
     var _op:NSOperationQueue!
     var mp:MPMoviePlayerController!
+    var opArr:NSMutableArray!
     
     @IBOutlet weak var label: UILabel!
     override func viewDidLoad() {
@@ -19,7 +20,7 @@ class ViewController: UIViewController {
         
         let ws = GCDWebServer()
         ws.addGETHandlerForBasePath("/", directoryPath: NSHomeDirectory(), indexFilename: nil, cacheAge: 3600, allowRangeRequests: true)
-        ws.startWithPort(12345, bonjourName: nil)
+        ws.startWithPort(LOCAL_PORT, bonjourName: nil)
         
         let p = Parser()
         let idStr = "XODMxNjM2MTI0"
@@ -28,47 +29,37 @@ class ViewController: UIViewController {
             
             let tmpPath = NSHomeDirectory()
             println(tmpPath)
-            var opArr = NSMutableArray()
+            self.opArr = NSMutableArray()
             var num = 0
             var count = 0
-            var currProgressNum:Double = 0
-            var totalProgressNum:Double = 0
+
             
             var out_m3u8 = "#EXTM3U\n#EXT-X-TARGETDURATION:12\n#EXT-X-VERSION:3\n"
             for seg in videoURLs
             {
-                var op = AFHTTPRequestOperation(request:NSURLRequest(URL: NSURL(string: seg.url)!))
-                
-                op.setDownloadProgressBlock({ (byetsRead, totalBytesRead, totalBytesExpectedToRead) -> Void in
-                    currProgressNum = Double(totalBytesRead)/Double(totalBytesExpectedToRead) * Double(100.0)/Double(videoURLs.count)
-                    self.label.text = String(format: "%.1f",currProgressNum+totalProgressNum)
-                })
-                
-                op.setCompletionBlockWithSuccess({(AFHTTPRequestOperation, AnyObject) -> Void in
-                    totalProgressNum += currProgressNum
-                    currProgressNum = 0
-                    
-                    let path = tmpPath.stringByAppendingPathComponent("\(num)")
-                    var data:NSData = AFHTTPRequestOperation.responseData
-                    println("write to \(path)")
-                    
-                    data.writeToFile(path, atomically: true)
-                    num++
-                    }, failure: { (AFHTTPRequestOperation, NSError) -> Void in
+                let path =  tmpPath.stringByAppendingPathComponent("\(count)")
+                var op:AFDownloadRequestOperation = AFDownloadRequestOperation(request: NSURLRequest(URL: NSURL(string: seg.url)!), targetPath: path, shouldResume: true)
+                op.setCompletionBlockWithSuccess({(ff, obj) -> Void in
+                    let g:AFDownloadRequestOperation = ff as AFDownloadRequestOperation
+                    (ff as AFDownloadRequestOperation).deleteTempFileWithError(nil)
+                    println("save \(path)")
+                }, failure: { (AFHTTPRequestOperation, NSError) -> Void in
                    
                 })
-                opArr.addObject(op)
+                self.opArr.addObject(op)
                 out_m3u8 += "#EXTINF:\(seg.duration),\nhttp://127.0.0.1:12345/\(count)\n"
                 count++
             }
             out_m3u8 += "#EXT-X-ENDLIST"
             out_m3u8.writeToFile(tmpPath.stringByAppendingPathComponent("a.m3u8"), atomically: true, encoding: NSUTF8StringEncoding, error: nil)
             
-            
-            var batches = AFURLConnectionOperation.batchOfRequestOperations(opArr, progressBlock: { (numberOfFinishedOperations, totalNumberOfOperations) -> Void in
-                
+            var h = CFAbsoluteTimeGetCurrent()
+            var batches = AFURLConnectionOperation.batchOfRequestOperations(self.opArr, progressBlock: { (numberOfFinishedOperations, totalNumberOfOperations) -> Void in
+                let per = Double(numberOfFinishedOperations)/Double(totalNumberOfOperations) * 100
+                self.label.text = String(format: "%.1f", per)
             },completionBlock:{ (operations) -> Void in
-                println("all done!")
+                let hx = CFAbsoluteTimeGetCurrent() - h
+                println("all done!",hx)
                 
                 let mp2 = MPMoviePlayerController(contentURL: NSURL(string: "http://127.0.0.1:12345/a.m3u8"))
                 mp2.view.frame = self.view.frame
@@ -79,16 +70,30 @@ class ViewController: UIViewController {
             })
             
             self._op = NSOperationQueue()
-            self._op.maxConcurrentOperationCount = 1
+            self._op.maxConcurrentOperationCount = 5
             self._op.addOperations(batches, waitUntilFinished: false)
         })
+    }
+    
+    @IBAction func pause()
+    {
+        for e in self.opArr{
+            (e as AFHTTPRequestOperation).pause();
+        }
+    }
+    
+    @IBAction func resume()
+    {
+        for e in self.opArr
+        {
+            (e as AFHTTPRequestOperation).resume();
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
 }
 

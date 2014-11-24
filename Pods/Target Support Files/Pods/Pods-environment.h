@@ -6,6 +6,12 @@
 // project.
 
 
+// AFDownloadRequestOperation
+#define COCOAPODS_POD_AVAILABLE_AFDownloadRequestOperation
+#define COCOAPODS_VERSION_MAJOR_AFDownloadRequestOperation 2
+#define COCOAPODS_VERSION_MINOR_AFDownloadRequestOperation 0
+#define COCOAPODS_VERSION_PATCH_AFDownloadRequestOperation 1
+
 // AFNetworking
 #define COCOAPODS_POD_AVAILABLE_AFNetworking
 #define COCOAPODS_VERSION_MAJOR_AFNetworking 2

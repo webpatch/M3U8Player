@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 struct M3U8SegmentInfo:Printable {
     var url:String
     var duration:Double
@@ -14,17 +15,6 @@ struct M3U8SegmentInfo:Printable {
     {
         return "\(url):\(duration)"
     }
-}
-
-private func findM3U8(url:String, inArray:[M3U8SegmentInfo]) ->Bool
-{
-    for i in inArray
-    {
-        if i.url == url{
-            return true
-        }
-    }
-    return false
 }
 
 class M3U8 {
@@ -44,7 +34,7 @@ class M3U8 {
                 videoURLs[videoURLs.count-1].duration += duration
             }
         }
-        println(videoURLs)
+        println("decode m3u8 file success: \(videoURLs.count)")
         return videoURLs
     }
     
