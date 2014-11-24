@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "97EF0DEF64C8875E05B83367"
-               BuildableName = "libPods-GCDWebServer.a"
-               BlueprintName = "Pods-GCDWebServer"
+               BlueprintIdentifier = "A45389EC862689B48BF22C88"
+               BuildableName = "libPods-AFDownloadRequestOperation.a"
+               BlueprintName = "Pods-AFDownloadRequestOperation"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

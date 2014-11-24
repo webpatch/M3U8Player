@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         ws.startWithPort(LOCAL_PORT, bonjourName: nil)
         
         let p = Parser()
-        let idStr = "XODMxNjM2MTI0"
+        let idStr = "XODMzNzA2NDEy"
         p.getM3U8FileByVideoID(idStr, success: { (m3u8File) -> Void in
             let videoURLs = M3U8.decode(m3u8File)
             
@@ -33,12 +33,13 @@ class ViewController: UIViewController {
             var num = 0
             var count = 0
 
-            
+            var lastBytesReceived:Double = 0
             var out_m3u8 = "#EXTM3U\n#EXT-X-TARGETDURATION:12\n#EXT-X-VERSION:3\n"
             for seg in videoURLs
             {
                 let path =  tmpPath.stringByAppendingPathComponent("\(count)")
                 var op:AFDownloadRequestOperation = AFDownloadRequestOperation(request: NSURLRequest(URL: NSURL(string: seg.url)!), targetPath: path, shouldResume: true)
+                
                 op.setCompletionBlockWithSuccess({(ff, obj) -> Void in
                     let g:AFDownloadRequestOperation = ff as AFDownloadRequestOperation
                     (ff as AFDownloadRequestOperation).deleteTempFileWithError(nil)
@@ -46,6 +47,7 @@ class ViewController: UIViewController {
                 }, failure: { (AFHTTPRequestOperation, NSError) -> Void in
                    
                 })
+                
                 self.opArr.addObject(op)
                 out_m3u8 += "#EXTINF:\(seg.duration),\nhttp://127.0.0.1:12345/\(count)\n"
                 count++
@@ -67,12 +69,15 @@ class ViewController: UIViewController {
                 mp2.setFullscreen(true, animated: true)
                 mp2.play()
                 self.mp = mp2
+                
             })
             
             self._op = NSOperationQueue()
-            self._op.maxConcurrentOperationCount = 5
+            self._op.maxConcurrentOperationCount = 1
             self._op.addOperations(batches, waitUntilFinished: false)
         })
+        
+
     }
     
     @IBAction func pause()
