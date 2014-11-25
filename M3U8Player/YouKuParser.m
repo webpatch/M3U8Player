@@ -6,16 +6,11 @@
 //  Copyright (c) 2014年 Clinic. All rights reserved.
 //
 
-#import "Parser.h"
+#import "YoukuParser.h"
 #import "AFNetworking.h"
 
-@implementation Parser
-{
-    NSString *ep;
-    NSString *ip;
-    NSArray *stream_types;
-    NSMutableDictionary *streams;
-}
+static NSArray *stream_types;
+@implementation YoukuParser
 
 void swap(int *a,int *b)
 {
@@ -24,16 +19,28 @@ void swap(int *a,int *b)
     *b = tmp;
 }
 
--(void)getM3U8FileByVideoID: (NSString*)vid success:(void (^)(NSString *m3u8File))success
++(void)getM3U8URLByVideoID: (NSString*)vid success:(void (^)(NSString *m3u8File))success
 {
+    
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        stream_types = @[@{@"id": @"hd3", @"container": @"flv", @"video_profile": @"1080P"},
+                         @{@"id": @"hd2", @"container": @"flv", @"video_profile": @"超清"},
+                         @{@"id": @"mp4", @"container": @"mp4", @"video_profile": @"高清"},
+                         @{@"id": @"flvhd", @"container": @"flv", @"video_profile": @"高清"},
+                         @{@"id": @"flv", @"container": @"flv", @"video_profile": @"标清"},
+                         @{@"id": @"3gphd", @"container": @"3gp", @"video_profile": @"高清（3GP）"}];
+    });
+    
+    NSMutableDictionary *streams = [[NSMutableDictionary alloc]init];
     NSString *url = [NSString stringWithFormat:@"http://v.youku.com/player/getPlayList/VideoIDS/%@/Pf/4/ctype/12/ev/1",vid];
     AFHTTPRequestOperationManager *m = [AFHTTPRequestOperationManager manager];
     [m GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"sucess get ep");
         
         id metadata0 = responseObject[@"data"][0];
-        ep = metadata0[@"ep"];
-        ip = metadata0[@"ip"];
+        NSString *ep = metadata0[@"ep"];
+        NSString *ip = metadata0[@"ip"];
         
         for (id stream_type in stream_types) {
             if(metadata0[@"streamsizes"][stream_type[@"id"]]){
@@ -59,50 +66,55 @@ void swap(int *a,int *b)
         
         NSString *stream_id = @"mp4";
         NSDictionary *out = [self generate:vid withEP:ep];
-        NSDictionary *requestParams = @{@"ctype":@12,
-                                        @"ep":out[@"new_ep"],
-                                        @"ev":@1,
-                                        @"keyframe":@1,
-                                        @"oip":ip,
-                                        @"sid":out[@"sid"],
-                                        @"token":out[@"token"],
-                                        @"ts":[NSNumber numberWithLong:(long)time(NULL)],
-                                        @"type":stream_id,
-                                        @"vid":vid};
+//        NSDictionary *requestParams = @{@"ctype":@12,
+//                                        @"ep":out[@"new_ep"],
+//                                        @"ev":@1,
+//                                        @"keyframe":@1,
+//                                        @"oip":ip,
+//                                        @"sid":out[@"sid"],
+//                                        @"token":out[@"token"],
+//                                        @"ts":[NSNumber numberWithLong:(long)time(NULL)],
+//                                        @"type":stream_id,
+//                                        @"vid":vid};
         
-        NSMutableURLRequest *rq = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET"
-                                                                                URLString:@"http://pl.youku.com/playlist/m3u8"
-                                                                               parameters:requestParams error:nil];
-        m.responseSerializer = [AFHTTPResponseSerializer serializer];
-        [[m HTTPRequestOperationWithRequest:rq success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSData *d = responseObject;
-            NSString *m3u8 = [[NSString alloc]initWithData:d encoding:NSUTF8StringEncoding];
-            NSLog(@"sucess get M3U8 file");
-            success(m3u8);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Get M3U8 file error: %@", error);
-        }] start];
+        NSString *url = [NSString stringWithFormat:@"http://pl.youku.com/playlist/m3u8?ctype=12&ep=%@&ev=1&keyframe=1&oip=%@&sid=%@&token=%@&ts=%lu&type=%@&vid=%@",out[@"new_ep"],ip,out[@"sid"],out[@"token"],(long)time(NULL),stream_id,vid];
+        success(url);
+//        
+//        NSMutableURLRequest *rq = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET"
+//                                                                                URLString:@"http://pl.youku.com/playlist/m3u8"
+//                                                                               parameters:requestParams error:nil];
+//        m.responseSerializer = [AFHTTPResponseSerializer serializer];
+//        [[m HTTPRequestOperationWithRequest:rq success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSData *d = responseObject;
+//            NSString *m3u8 = [[NSString alloc]initWithData:d encoding:NSUTF8StringEncoding];
+//            NSLog(@"sucess get M3U8 file");
+//            success(m3u8);
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            NSLog(@"Get M3U8 file error: %@", error);
+//        }] start];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get EP error: %@", error);
     }];
 }
 
--(instancetype)init
++(instancetype)sharedInstance
 {
-    if(self = [super init])
-    {
-        streams = [[NSMutableDictionary alloc]init];
+    static dispatch_once_t once;
+    static id sharedInstance;
+    dispatch_once(&once, ^{
+        sharedInstance = [[self alloc] init];
+        
         stream_types = @[@{@"id": @"hd3", @"container": @"flv", @"video_profile": @"1080P"},
                          @{@"id": @"hd2", @"container": @"flv", @"video_profile": @"超清"},
                          @{@"id": @"mp4", @"container": @"mp4", @"video_profile": @"高清"},
                          @{@"id": @"flvhd", @"container": @"flv", @"video_profile": @"高清"},
                          @{@"id": @"flv", @"container": @"flv", @"video_profile": @"标清"},
                          @{@"id": @"3gphd", @"container": @"3gp", @"video_profile": @"高清（3GP）"}];
-    }
-    return self;
+    });
+    return sharedInstance;
 }
 
--(NSDictionary *)generate:(NSString *)vid withEP:(NSString*)epIn
++(NSDictionary *)generate:(NSString *)vid withEP:(NSString*)epIn
 {
     NSString *f_code_1 = @"becaf9be";
     NSString *f_code_2 = @"bf7e5f01";
@@ -123,7 +135,7 @@ void swap(int *a,int *b)
     return @{@"new_ep":new_ep,@"sid":sid,@"token":token};
 }
 
--(NSData *)trans_e:(NSString *)a withCharPointer:(const unsigned char *)c withCharLen:(NSUInteger) clen
++(NSData *)trans_e:(NSString *)a withCharPointer:(const unsigned char *)c withCharLen:(NSUInteger) clen
 {
     int f = 0, h = 0;
     int b[256];

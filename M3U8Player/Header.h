@@ -8,6 +8,5 @@
 #import "AFNetworking.h"
 #import "GCDWebServer.h"
 #import "GCDWebServerDataResponse.h"
-#import "Parser.h"
+#import "YoukuParser.h"
 #import "AFDownloadRequestOperation.h"
-#import "TCBlobDownload.h"

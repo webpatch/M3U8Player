@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Parser : NSObject
--(void)getM3U8FileByVideoID: (NSString*)vid success:(void (^)(NSString *m3u8File))success;
+@interface YoukuParser : NSObject
++(void)getM3U8URLByVideoID: (NSString*)vid success:(void (^)(NSString *m3u8URL))success;
 @end
