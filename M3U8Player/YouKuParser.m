@@ -67,16 +67,6 @@ void swap(int *a,int *b)
         
         NSString *stream_id = @"mp4";
         NSDictionary *out = [self generate:vid withEP:ep];
-//        NSDictionary *requestParams = @{@"ctype":@12,
-//                                        @"ep":out[@"new_ep"],
-//                                        @"ev":@1,
-//                                        @"keyframe":@1,
-//                                        @"oip":ip,
-//                                        @"sid":out[@"sid"],
-//                                        @"token":out[@"token"],
-//                                        @"ts":[NSNumber numberWithLong:(long)time(NULL)],
-//                                        @"type":stream_id,
-//                                        @"vid":vid};
         NSString *url = [NSString stringWithFormat:@"http://pl.youku.com/playlist/m3u8?ctype=12&ep=%@&ev=1&keyframe=1&oip=%@&sid=%@&token=%@&ts=%lu&type=%@&vid=%@",out[@"new_ep"],ip,out[@"sid"],out[@"token"],(long)time(NULL),stream_id,vid];
         success(url);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -38,9 +38,9 @@ class M3U8Handler {
         let m = AFHTTPRequestOperationManager()
         m.responseSerializer = AFHTTPResponseSerializer()
         m.GET(url, parameters: nil, success: { (operation, responseObj) -> Void in
-            println("sucess get M3U8 file")
             let d = responseObj as NSData;
             let m3u8 = NSString(data: d, encoding: NSUTF8StringEncoding)!
+            println("sucess get M3U8 file \(m3u8)")
             success(self.decode(m3u8))
         }) { (operation, error) -> Void in
             println("get M3U8 file error \(error)")
@@ -63,7 +63,7 @@ class M3U8Handler {
                 let s = (str as NSString).componentsSeparatedByString(":")[1] as String
                 duration = s.subStringTo(s.length-1).toDouble()
             }else if str.hasPrefix("http://"){
-                newM3U8Str += joinURLPath("\(count)\n")
+                newM3U8Str += "\(count)\n"
                 videoURLs.append(M3U8SegmentInfo(url: str, duration: 0));
                 videoURLs[videoURLs.count-1].duration += duration
                 count++

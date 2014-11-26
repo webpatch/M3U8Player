@@ -11,7 +11,7 @@ class VideoDownLoader {
     var opArr = [AFHTTPRequestOperation]()
     var op:NSOperationQueue!
     
-    init(vid:String,progress:(Double)->Void)
+    init(vid:String,progress:(Double)->Void,complete:(Void)->Void)
     {
         YoukuParser.getM3U8URLByVideoID(vid, success: { (m3u8URL:String!) -> Void in
             println(m3u8URL)
@@ -19,7 +19,7 @@ class VideoDownLoader {
                 let videoPath = FileHelper.videosPath.joinPath(vid)
                 NSFileManager().createDirectoryAtPath(videoPath, withIntermediateDirectories: true, attributes: nil, error: nil)
                 
-                m3u8Str.writeToFile(videoPath, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+                m3u8Str.writeToFile(videoPath.joinPath("a.m3u8"), atomically: true, encoding: NSUTF8StringEncoding, error: nil)
                 
                 for (idx,seg) in enumerate(segments)
                 {
@@ -41,6 +41,7 @@ class VideoDownLoader {
                     println(per)
                 },completionBlock:{ (operations) -> Void in
                     println("all done!")
+                    complete()
                 })
                 
                 self.op = NSOperationQueue()

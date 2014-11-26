@@ -22,8 +22,15 @@ class ViewController: UIViewController {
 
         let idStr = "XODMzNzA2NDEy"
         
-        d = VideoDownLoader(vid: idStr,progress: { (progress) -> Void in
-            self.label.text = String(format: "%.1f", progress)
+        println(FileHelper.videosPath)
+        d = VideoDownLoader(vid: idStr, progress: { progress in
+             self.label.text = String(format: "%.1f", progress)
+        },complete:{
+            println("download complete!")
+            self.mp = MPMoviePlayerController(contentURL: NSURL(string:joinURLPath(idStr,"a.m3u8")))
+            self.view.addSubview(self.mp.view)
+            self.mp.view.frame = self.view.frame
+            self.mp.setFullscreen(true, animated: true)
         })
     }
     
