@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		330FC4681A1F693100B5D319 /* M3U8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330FC4671A1F693100B5D319 /* M3U8.swift */; };
+		330FC4681A1F693100B5D319 /* M3U8Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330FC4671A1F693100B5D319 /* M3U8Handler.swift */; };
 		3332E1ED1A237EE9001257E5 /* samples in Resources */ = {isa = PBXBuildFile; fileRef = 3332E1EC1A237EE9001257E5 /* samples */; };
 		410991841A1DEC5F00FFEB7F /* YouKuParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 410991831A1DEC5F00FFEB7F /* YouKuParser.m */; };
+		413CA2D81A25877F00DF6A6F /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CA2D71A25877F00DF6A6F /* FileHelper.swift */; };
+		413CA2DA1A25A23000DF6A6F /* VideoDownLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CA2D91A25A23000DF6A6F /* VideoDownLoader.swift */; };
 		414A97861A22CE3B004D3232 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414A97851A22CE3B004D3232 /* Config.swift */; };
 		4194E2A31A1EF0B300D0A1AC /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194E2A21A1EF0B300D0A1AC /* String.swift */; };
 		4194E2A51A1EF7C800D0A1AC /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4194E2A41A1EF7C800D0A1AC /* MediaPlayer.framework */; };
@@ -49,10 +51,12 @@
 
 /* Begin PBXFileReference section */
 		330856011A1B747300EFC272 /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
-		330FC4671A1F693100B5D319 /* M3U8.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M3U8.swift; sourceTree = "<group>"; };
+		330FC4671A1F693100B5D319 /* M3U8Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M3U8Handler.swift; sourceTree = "<group>"; };
 		3332E1EC1A237EE9001257E5 /* samples */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = samples; sourceTree = "<group>"; };
 		410991821A1DEC5F00FFEB7F /* YouKuParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouKuParser.h; sourceTree = "<group>"; };
 		410991831A1DEC5F00FFEB7F /* YouKuParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouKuParser.m; sourceTree = "<group>"; };
+		413CA2D71A25877F00DF6A6F /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
+		413CA2D91A25A23000DF6A6F /* VideoDownLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDownLoader.swift; sourceTree = "<group>"; };
 		414A97851A22CE3B004D3232 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		4194E2A21A1EF0B300D0A1AC /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		4194E2A41A1EF7C800D0A1AC /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -95,6 +99,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		416ABCA11A25768C000D6AB7 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				410991821A1DEC5F00FFEB7F /* YouKuParser.h */,
+				410991831A1DEC5F00FFEB7F /* YouKuParser.m */,
+			);
+			name = Parser;
+			sourceTree = "<group>";
+		};
+		416ABCA21A257F94000D6AB7 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4194E2A21A1EF0B300D0A1AC /* String.swift */,
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
 		41F1E3C41A19F0D0009A823F = {
 			isa = PBXGroup;
 			children = (
@@ -118,17 +139,18 @@
 		41F1E3CF1A19F0D0009A823F /* M3U8Player */ = {
 			isa = PBXGroup;
 			children = (
-				4194E2A21A1EF0B300D0A1AC /* String.swift */,
-				330FC4671A1F693100B5D319 /* M3U8.swift */,
+				413CA2D71A25877F00DF6A6F /* FileHelper.swift */,
+				416ABCA21A257F94000D6AB7 /* Extension */,
+				416ABCA11A25768C000D6AB7 /* Parser */,
+				330FC4671A1F693100B5D319 /* M3U8Handler.swift */,
 				41F1E3D21A19F0D0009A823F /* AppDelegate.swift */,
+				413CA2D91A25A23000DF6A6F /* VideoDownLoader.swift */,
 				41F1E3D41A19F0D0009A823F /* ViewController.swift */,
 				41F1E3D61A19F0D0009A823F /* Main.storyboard */,
 				41F1E3D91A19F0D0009A823F /* Images.xcassets */,
 				41F1E3DB1A19F0D0009A823F /* LaunchScreen.xib */,
 				41F1E3D01A19F0D0009A823F /* Supporting Files */,
 				330856011A1B747300EFC272 /* Header.h */,
-				410991821A1DEC5F00FFEB7F /* YouKuParser.h */,
-				410991831A1DEC5F00FFEB7F /* YouKuParser.m */,
 				414A97851A22CE3B004D3232 /* Config.swift */,
 				3332E1EC1A237EE9001257E5 /* samples */,
 			);
@@ -320,8 +342,10 @@
 				410991841A1DEC5F00FFEB7F /* YouKuParser.m in Sources */,
 				41F1E3D51A19F0D0009A823F /* ViewController.swift in Sources */,
 				4194E2A31A1EF0B300D0A1AC /* String.swift in Sources */,
-				330FC4681A1F693100B5D319 /* M3U8.swift in Sources */,
+				330FC4681A1F693100B5D319 /* M3U8Handler.swift in Sources */,
 				41F1E3D31A19F0D0009A823F /* AppDelegate.swift in Sources */,
+				413CA2DA1A25A23000DF6A6F /* VideoDownLoader.swift in Sources */,
+				413CA2D81A25877F00DF6A6F /* FileHelper.swift in Sources */,
 				414A97861A22CE3B004D3232 /* Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

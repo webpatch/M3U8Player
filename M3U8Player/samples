@@ -1,2 +1,13 @@
 http://api.cntv.cn/video/videolistById?serviceId=cbox&vsid=VSET100172585107&em=02&n=10000
-http://api.cntv.cn/video/videolistById?serviceId=cbox&vsid=C16717&em=02&n=10000∂
+http://api.cntv.cn/video/videolistById?serviceId=cbox&vsid=C16717&em=02&n=10000
+
+
+get m3u8 url
+
+get m3u8 file
+
+parse m3u8 file + create new m3u8 file
+
+download video file
+
+play video

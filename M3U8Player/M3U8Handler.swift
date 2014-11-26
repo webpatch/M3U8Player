@@ -8,17 +8,47 @@
 
 import Foundation
 
-struct M3U8SegmentInfo:Printable {
+enum VideoType
+{
+    case mp4
+    case ts
+}
+
+//MARK:- M3U8SegmentInfo
+struct M3U8SegmentInfo {
     var url:String
     var duration:Double
+}
+
+//MARK: M3U8SegmentInfo Printable
+extension M3U8SegmentInfo:Printable
+{
     var description:String
     {
         return "\(url):\(duration)"
     }
 }
 
-class M3U8 {
-    class func decode(content:String) -> ([M3U8SegmentInfo],String)
+//MARK:- M3U8Handler
+class M3U8Handler {
+    
+    //MARK: Public
+    class func download(url:String,success: ([M3U8SegmentInfo],String)->Void)
+    {
+        let m = AFHTTPRequestOperationManager()
+        m.responseSerializer = AFHTTPResponseSerializer()
+        m.GET(url, parameters: nil, success: { (operation, responseObj) -> Void in
+            println("sucess get M3U8 file")
+            let d = responseObj as NSData;
+            let m3u8 = NSString(data: d, encoding: NSUTF8StringEncoding)!
+            success(self.decode(m3u8))
+        }) { (operation, error) -> Void in
+            println("get M3U8 file error \(error)")
+        }
+    }
+    
+    //MARK: private
+    private class func decode(content:String) -> ([M3U8SegmentInfo],String)
     {
         var newM3U8Str = "#EXTM3U\n"
         var videoURLs = [M3U8SegmentInfo]()
@@ -42,13 +72,7 @@ class M3U8 {
             }
         }
         newM3U8Str += "#EXT-X-ENDLIST"
-        println(newM3U8Str)
         println("decode m3u8 file success: \(videoURLs.count)")
         return (videoURLs,newM3U8Str)
-    }
-    
-    class func encode()
-    {
-        
     }
 }

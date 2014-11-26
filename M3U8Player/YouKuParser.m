@@ -19,6 +19,7 @@ void swap(int *a,int *b)
     *b = tmp;
 }
 
+#pragma mark Public
 +(void)getM3U8URLByVideoID: (NSString*)vid success:(void (^)(NSString *m3u8File))success
 {
     
@@ -76,44 +77,14 @@ void swap(int *a,int *b)
 //                                        @"ts":[NSNumber numberWithLong:(long)time(NULL)],
 //                                        @"type":stream_id,
 //                                        @"vid":vid};
-        
         NSString *url = [NSString stringWithFormat:@"http://pl.youku.com/playlist/m3u8?ctype=12&ep=%@&ev=1&keyframe=1&oip=%@&sid=%@&token=%@&ts=%lu&type=%@&vid=%@",out[@"new_ep"],ip,out[@"sid"],out[@"token"],(long)time(NULL),stream_id,vid];
         success(url);
-//        
-//        NSMutableURLRequest *rq = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET"
-//                                                                                URLString:@"http://pl.youku.com/playlist/m3u8"
-//                                                                               parameters:requestParams error:nil];
-//        m.responseSerializer = [AFHTTPResponseSerializer serializer];
-//        [[m HTTPRequestOperationWithRequest:rq success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            NSData *d = responseObject;
-//            NSString *m3u8 = [[NSString alloc]initWithData:d encoding:NSUTF8StringEncoding];
-//            NSLog(@"sucess get M3U8 file");
-//            success(m3u8);
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"Get M3U8 file error: %@", error);
-//        }] start];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get EP error: %@", error);
     }];
 }
 
-+(instancetype)sharedInstance
-{
-    static dispatch_once_t once;
-    static id sharedInstance;
-    dispatch_once(&once, ^{
-        sharedInstance = [[self alloc] init];
-        
-        stream_types = @[@{@"id": @"hd3", @"container": @"flv", @"video_profile": @"1080P"},
-                         @{@"id": @"hd2", @"container": @"flv", @"video_profile": @"超清"},
-                         @{@"id": @"mp4", @"container": @"mp4", @"video_profile": @"高清"},
-                         @{@"id": @"flvhd", @"container": @"flv", @"video_profile": @"高清"},
-                         @{@"id": @"flv", @"container": @"flv", @"video_profile": @"标清"},
-                         @{@"id": @"3gphd", @"container": @"3gp", @"video_profile": @"高清（3GP）"}];
-    });
-    return sharedInstance;
-}
-
+#pragma mark Private
 +(NSDictionary *)generate:(NSString *)vid withEP:(NSString*)epIn
 {
     NSString *f_code_1 = @"becaf9be";

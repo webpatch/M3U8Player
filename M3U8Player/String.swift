@@ -12,6 +12,10 @@ extension String {
         return countElements(self)
     }
     
+    func joinPath(str:String)->String{
+        return self.stringByAppendingPathComponent(str)
+    }
+    
     func toDouble()->Double{
         return (self as NSString).doubleValue
     }
@@ -61,7 +65,6 @@ extension String {
     
     func substring(start:Int,_ count:Int)->String{
         return self[start..<(start + count)]
-//        return (self as NSString).substringWithRange(NSRange(location: start, length: count))
     }
     
     func subStringTo(pos:Int)->String {
@@ -71,7 +74,7 @@ extension String {
         substr = self[range]
         return substr
     }
-
+    
     subscript(start:Int, count:Int)->String
     {
         return self[start..<(start + count)]
